@@ -1,0 +1,12 @@
+FORUM_PORT="8080"
+FORUM_SSL_PORT="4430"
+FORUM_EMAIL="jimmy@xxxxx.sh"
+FORUM_URL="forum.xxxxx.sh"
+FORUM_SMTP_SERVER="email-smtp.us-west-2.amazonaws.com"
+FORUM_SMTP_PORT="587"
+FORUM_SMTP_SSL_TYPE="true"
+FORUM_SMTP_USERNAME="AKIxxxxxxxxxxxxxxxTA"
+FORUM_SMTP_PASSWORD="ApJxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxRU"
+
+ENV_HTTP_PROXY=""
+ENV_HTTPS_PROXY=""

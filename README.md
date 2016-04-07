@@ -1,25 +1,51 @@
 run discourse(standalone) with discourse_docker
-======================================
+=================================================
 
-> REF: https://github.com/discourse/discourse/blob/master/docs/INSTALL-cloud.md
+**REF**
+```
+http://learndiscourse.org/
+https://github.com/discourse/discourse/blob/master/docs/INSTALL-cloud.md/
+```
 
-# download discourse_docker
+
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [quickstart](#quickstart)
+- [step by step](#step-by-step)
+	- [download discourse_docker](#download-discoursedocker)
+	- [config](#config)
+	- [check config finally](#check-config-finally)
+	- [bootstrap](#bootstrap)
+	- [start](#start)
+	- [enter container](#enter-container)
+
+<!-- /TOC -->
+
+# quickstart
+```
+//just run the following script
+./util.sh
+```
+
+# step by step
+
+## download discourse_docker
 ```
 cd ~
 git clone https://github.com/discourse/discourse_docker.git
 cd ~/discourse_docker
 ```
 
-# config
+## config
 ```
 cp samples/standalone.yml containers/app.yml
 
-#basic config
+//basic config
 PORT='8080'
 EMAIL='support@xxxxx.sh'
 URL='forum.xxxxx.sh'
 
-#config smtp
+//config smtp
 SMTP_SERVER='email-smtp.us-west-2.amazonaws.com'
 SMTP_PORT='587'
 SMTP_SSL_TYPE='true'
@@ -37,23 +63,23 @@ sed -i "s%.*DISCOURSE_SMTP_PASSWORD: .*%  DISCOURSE_SMTP_PASSWORD: ${SMTP_PASSWO
 sed -i "s%.*DISCOURSE_SMTP_ENABLE_START_TLS: .*%  DISCOURSE_SMTP_ENABLE_START_TLS: ${SMTP_SSL_TYPE}%g" containers/app.yml
 ```
 
-# check config finally
+## check config finally
 ```
 cat containers/app.yml | grep -E '(^  DISCOURSE_SMTP|EMAILS:|HOSTNAME:|:80")'
 ```
 
-# bootstrap
+## bootstrap
 ```
 sudo ln -s $(which docker) /usr/bin/docker.io
 ./launcher bootstrap app
 ```
 
-# start
+## start
 ```
 ./launcher start app
 ```
 
-# enter container
+## enter container
 ```
 ./launcher enter app
 ```
