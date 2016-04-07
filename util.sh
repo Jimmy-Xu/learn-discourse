@@ -98,7 +98,7 @@ function clone_repo(){
 }
 
 function start_app() {
-  fn_name="generate_config"
+  fn_name="start_app"
   log "${fn_name}" "prepare ${APP_NAME}.yml from template"
   if [ -s ${FORUM_CFG_YML_TEMPLATE} ];then
     [ -f ${FORUM_CFG_YML} ] && rm -rf ${FORUM_CFG_YML}
