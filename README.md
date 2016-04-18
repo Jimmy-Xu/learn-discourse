@@ -7,7 +7,6 @@ http://learndiscourse.org/
 https://github.com/discourse/discourse/blob/master/docs/INSTALL-cloud.md/
 ```
 
-
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
 - [quickstart](#quickstart)
@@ -18,6 +17,16 @@ https://github.com/discourse/discourse/blob/master/docs/INSTALL-cloud.md/
 	- [bootstrap](#bootstrap)
 	- [start](#start)
 	- [enter container](#enter-container)
+- [integrate slack](#integrate-slack)
+	- [config slack](#config-slack)
+		- [create new channel](#create-new-channel)
+		- [create new Incoming WebHooks](#create-new-incoming-webhooks)
+	- [config discourse](#config-discourse)
+		- [modify app.yml](#modify-appyml)
+		- [rebuild app](#rebuild-app)
+		- [set slack in discourse](#set-slack-in-discourse)
+			- [check slack plugins is installed](#check-slack-plugins-is-installed)
+			- [modify settings for slack](#modify-settings-for-slack)
 
 <!-- /TOC -->
 
@@ -82,4 +91,70 @@ sudo ln -s $(which docker) /usr/bin/docker.io
 ## enter container
 ```
 ./launcher enter app
+```
+
+# integrate slack
+
+- Post all new posts(topic, reply) to Slack
+
+## config slack
+
+### create new channel
+```
+create a new public channel, name is 'forum'
+```
+
+### create new Incoming WebHooks
+```
+go to https://<team-name>.slack.com/apps/manage/custom-integrations
+ -> Add Configuration
+   -> Integration Settings
+	    - Post to Channel: #forum
+	    - Webhook URL    : https://hooks.slack.com/services/T05xxxxxx/B1xxxxxxx/ILVxxxxxxxxxxxxxxxxxxxxE
+	    - Customize Name : ForumBot
+	    - Customize Icon : <Upload an image> as forum icon
+```
+
+## config discourse
+
+### modify app.yml
+```
+//modify containers/app.yml, append '- git clone https://github.com/bernd/discourse-slack-plugin.git'
+	...
+	hooks:
+	  after_code:
+	    - exec:
+	        cd: $home/plugins
+	        cmd:
+	          - git clone https://github.com/discourse/docker_manager.git
+	          - git clone https://github.com/bernd/discourse-slack-plugin.git
+	...
+```
+### rebuild app
+```
+$ ./launcher rebuild
+```
+
+### set slack in discourse
+
+#### check slack plugins is installed
+```
+Admin -> Plugins -> slack Enabled is 'Y'
+```
+
+#### modify settings for slack
+```
+Admin -> Settings -> Slack
+	- slack enabled: <checked>
+	- slack url       : https://hooks.slack.com/services/T05xxxxxx/B1xxxxxxx/ILVxxxxxxxxxxxxxxxxxxxxE
+	- slack channel   : forum
+	- slack emoji     : :discourse:
+	- slack posts     : <checked>
+	- slack full names: <checked>
+
+//create customized emoji ":discourse:"
+REF: https://get.slack.help/hc/en-us/articles/206870177-Creating-custom-emoji
+go to https://<team-name>.slack.com/customize/emoji
+1) Choose a name: "discourse"
+2) Upload your emoji image
 ```
