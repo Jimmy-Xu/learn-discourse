@@ -75,7 +75,7 @@ function check_config() {
 }
 
 function clone_repo(){
-  fn_name="clone_repo"
+  fn_name="${FUNCNAME}"
   cd ${WORKDIR}
   if [ -d ${TARGET_DIR}/.git ];then
     log "${fn_name}" "${TARGET_DIR} found"
@@ -98,7 +98,7 @@ function clone_repo(){
 }
 
 function start_app() {
-  fn_name="start_app"
+  fn_name="${FUNCNAME}"
   log "${fn_name}" "prepare ${APP_NAME}.yml from template"
   if [ -s ${FORUM_CFG_YML_TEMPLATE} ];then
     [ -f ${FORUM_CFG_YML} ] && rm -rf ${FORUM_CFG_YML}
