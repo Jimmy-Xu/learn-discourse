@@ -7,6 +7,7 @@ FORUM_SMTP_PORT="587"
 FORUM_SMTP_SSL_TYPE="true"
 FORUM_SMTP_USERNAME="AKIxxxxxxxxxxxxxxxTA"
 FORUM_SMTP_PASSWORD="ApJxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxRU"
+FORUM_PLUGIN_SLACK="https://github.com/bernd/discourse-slack-plugin.git"
 
 ENV_HTTP_PROXY=""
 ENV_HTTPS_PROXY=""

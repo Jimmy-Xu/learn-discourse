@@ -119,6 +119,11 @@ function start_app() {
   sed -i "s%.*DISCOURSE_SMTP_ENABLE_START_TLS: .*%  DISCOURSE_SMTP_ENABLE_START_TLS: '${FORUM_SMTP_SSL_TYPE}'%g" ${FORUM_CFG_YML}
   #proxy
   sed -i "/^env:/c\env:\n  http_proxy: ${ENV_HTTP_PROXY}\n  https_proxy: ${ENV_HTTPS_PROXY}\n" ${FORUM_CFG_YML}
+  #plugin
+  if [ "${FORUM_PLUGIN_SLACK}" != "" ];then
+    sed -i "/- git clone https:\/\/github.com\/discourse\/docker_manager.git/c\          - git clone https:\/\/github.com\/discourse\/docker_manager.git\n          - git clone ${FORUM_PLUGIN_SLACK}\n" ${FORUM_CFG_YML}
+    quit $? "error"
+  fi
 
   log "${fn_name}" "view config"
   echo "----------------------------------------------------"
